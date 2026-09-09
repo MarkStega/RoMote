@@ -101,7 +101,8 @@ fun RecentAppsSheet(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .fillMaxWidth()
-            .anchoredDraggable(state, Orientation.Vertical)
+            // The anchors are measured from the sheet's full height, so this stays outside the
+            // offset below, where the size is the un-shifted one.
             .onSizeChanged { size ->
                 collapsedOffsetPx =
                     (size.height - peekHeightPx - navigationBarHeightPx).toFloat()
@@ -118,6 +119,10 @@ fun RecentAppsSheet(
 
                 IntOffset(x = 0, y = if (offset.isNaN()) 0 else offset.roundToInt())
             }
+            // Inside the offset, so the sheet is draggable where it is drawn. Outside it, the
+            // pointer region is the un-shifted bounds - the sheet's expanded height, anchored to
+            // the bottom of the window - and the collapsed sheet eats taps on the volume row.
+            .anchoredDraggable(state, Orientation.Vertical)
             .clip(
                 RoundedCornerShape(topStart = SheetCornerRadius, topEnd = SheetCornerRadius)
             )
