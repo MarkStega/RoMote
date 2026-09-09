@@ -101,11 +101,11 @@ fun SettingsScreen(
                 onClick = onRateClick
             )
 
-            SettingsActionRow(
+            /*SettingsActionRow(
                 title = stringResource(R.string.donate_title_preference),
                 summary = stringResource(R.string.donate_summary_preference),
                 onClick = onDonateClick
-            )
+            )*/
 
             SettingsInfoRow(
                 title = stringResource(R.string.version_title_preference),
